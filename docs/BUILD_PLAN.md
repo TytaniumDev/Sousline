@@ -298,7 +298,7 @@ Costs $99 a year. Enrollment can take a day or two, so start early.
 - [x] Create an **App ID** with the app id from §8.0 and turn on the **Sign in with Apple** capability. Registered 2026-11-14 as `Sousvite`.
 - [x] For Sign in with Apple on Android and web: create a **Services ID**, set its return URL to the Firebase auth handler (`https://<project-id>.firebaseapp.com/__/auth/handler`), and create a **Sign in with Apple key** (`.p8`). Enter the Services ID, Team ID, Key ID, and key in Firebase Auth → Apple provider. Done 2026-11-14: Services ID `com.tytaniumdev.sousvite.signin` with domain `sousvite.firebaseapp.com`; the key is in Tyler's password manager.
 - [x] In **App Store Connect**, create the app record. Created 2026-11-14: name `Sousvite`, SKU `sousvite`, Apple ID `6834863123`, primary language English (U.S.).
-- [ ] Sign the **Paid Apps agreement** and fill in banking and tax details (needed before any subscription works, even in TestFlight sandbox).
+- [ ] Sign the **Paid Apps agreement** and fill in banking and tax details (needed before any subscription works, even in TestFlight sandbox). The agreement is accepted (2026-11-14); banking and tax are **deferred** until Tyler picks up payments, which blocks only `PRO-1` testing.
 - [x] Create an **App Store Connect API key** for CI uploads and an **In-App Purchase key** for RevenueCat (§8.7). Done 2026-11-14: `Sousvite CI` (App Manager, key id `VM85JUH69D`) and `Sousvite RevenueCat` (key id `3VTH9P42WT`), both kept in `~/Sousvite-secrets/` on Tyler's Mac.
 - [ ] Add your beta friends as TestFlight testers once `REL-1` lands.
 
@@ -318,7 +318,7 @@ Costs $25 once.
 
 - [ ] Create a developer account at [play.google.com/console](https://play.google.com/console) and verify your identity. Tyler's account exists but is restricted (2026-11-14): Google removed the profile in November 2024 because verification was never finished, so verification has to be completed before the app can be created.
 - [ ] Create the app with the app id from §8.0.
-- [ ] Set up a **payments profile** (merchant account) so you can sell subscriptions.
+- [ ] Set up a **payments profile** (merchant account) so you can sell subscriptions. **Deferred** with the rest of payments (Tyler, 2026-11-14).
 - [ ] Set up an **internal testing** track for your beta friends (up to 100 testers, no review wait).
 - [ ] Plan ahead for public release: Google requires new personal developer accounts to run a **closed test with at least 12 testers for 14 days in a row** before they can publish to production. Your beta friends can be those testers.
 - [ ] Create a **Google Cloud service account** with Play Console access for CI uploads (`REL-1`) and another for RevenueCat (§8.7), or reuse one.
@@ -334,6 +334,8 @@ Costs $25 once.
 - [ ] **Open Food Facts:** no account or key. Their API asks apps to send a `User-Agent` such as `Sousvite/1.0 (<contact email>)`, using the contact email from §8.0.
 
 ### 8.7 RevenueCat and Stripe (needed by `PRO-1`)
+
+**Deferred** (Tyler, 2026-11-14): all payment and billing setup waits until later. `PRO-1` can still be written and tested against fakes; it needs these accounts only for real purchases, and the app keeps the `FreeEntitlements` stub until then.
 
 - [ ] Create a [RevenueCat](https://www.revenuecat.com) account and project. Its free tier covers a beta.
 - [ ] Add the **iOS app** (with the In-App Purchase key from §8.2), the **Android app** (with the Play service account from §8.4), and **Web Billing** (connect a Stripe account, below).
@@ -364,7 +366,7 @@ Costs $25 once.
 ### 8.10 Inputs only Tyler has (not accounts)
 
 - [x] **A real Umami export** of your library, for `IMP-2` (ENGINEERING §18.1). Drop it in the project files or a private place an agent can read. It should not go in the public repo. Received 2026-11-13 (JSON and HTML exports, 226 recipes) and kept in the project files with format notes, outside the repo.
-- [ ] **Your measuring cups and spoons**, for a realistic default in `MEA-1` and your own settings.
+- [x] **Your measuring cups and spoons**, for a realistic default in `MEA-1` and your own settings. Tyler's set (2026-11-14): cups 1, ¾, ⅔, ½, ⅓, ¼; spoons 1 tbsp, ½ tbsp, 1 tsp, ½ tsp, ¼ tsp.
 - [ ] **A list of recipe sites you use most**, so `IMP-1` fixtures cover them first.
 
 ### 8.11 Costs at a glance
