@@ -5,3 +5,5 @@ import { setGlobalOptions } from 'firebase-functions/v2';
 
 // Same region as Cloud Storage. maxInstances caps cost if a client misbehaves.
 setGlobalOptions({ region: 'us-central1', maxInstances: 10 });
+
+export { fetchProxy } from './fetch_proxy/fetch_proxy.js';
