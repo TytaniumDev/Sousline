@@ -1,0 +1,12 @@
+rules_version = '2';
+
+// Everything is denied until photo sync (MEDIA-2) adds rules for its paths.
+// ENGINEERING.md §9. Rules are tested in functions/test/rules/ against the
+// emulator.
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -239,6 +239,8 @@ Because both carry the same change log, **switching transports** means replaying
 | App Check | Limits the proxies to our apps |
 
 - **Security rules** are the access boundary. They're written alongside the schema and tested with the Firestore emulator.
+- **Functions toolchain** *(Default)*: TypeScript on Node.js 24 (the newest Cloud Functions runtime), ES modules, `firebase-functions` v2 APIs, region `us-central1` (next to Cloud Storage) with a `maxInstances` cap set globally in `functions/src/index.ts`. Each function is a folder under `functions/src/<name>/`, exported from `index.ts` with one line. Tests mirror `src/` under `functions/test/` and use Vitest with a 90% coverage gate; rules tests live in `functions/test/rules/` and use `@firebase/rules-unit-testing`. Lints follow the Dart side's approach (§16): ESLint with `typescript-eslint`'s strict type-checked rules, snake_case file names, sorted imports, and Prettier formatting with single quotes. TypeScript stays on 6.0 until `typescript-eslint` supports 7.
+- **Emulators:** tests and local runs use the `demo-sousvite` project id, so they never touch the real `sousvite` project and need no credentials. `npm test` in `functions/` builds, starts the emulators, and runs every test.
 - **Subscriptions** *(Default)*: RevenueCat handles App Store, Google Play, and web (Stripe) billing, and a webhook writes the Pro entitlement to Firestore.
 - **Cost control:** batched change writes, snapshots so devices don't read full histories, and listeners scoped to the spaces a user belongs to.
 - Photos for Drive-sync users are stored in their Drive app folder.
@@ -302,7 +304,7 @@ Because both carry the same change log, **switching transports** means replaying
 | Golden | Design-system widgets and key screens, in light and dark themes | `alchemist` *(Default)* |
 | Integration | A few end-to-end flows: import → edit → cook → grocery list; offline edit → sync | `integration_test` |
 | Database | Drift migrations against generated schema snapshots | `drift_dev` |
-| Backend | Security rules and Cloud Functions | Firebase emulators |
+| Backend | Security rules and Cloud Functions | Firebase emulators, Vitest, `@firebase/rules-unit-testing` |
 
 **Mocking** *(Decided)*: `mocktail` for mocks and stubs, since it needs no code generation. Prefer small hand-written fakes for repositories, and use `mocktail` for collaborators where a fake would be heavier than the test.
 

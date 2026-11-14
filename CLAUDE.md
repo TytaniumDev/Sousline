@@ -22,6 +22,8 @@ packages/data/            Drift schema, DAOs, repository implementations. Pure D
 packages/design_system/   Tokens, theme, shared widgets. Flutter only
 packages/<pure>/          sync, ingredient_parser, recipe_import, nutrition, measuring
 tools/usda_builder/       CLI that builds the bundled USDA SQLite file
+functions/                Cloud Functions (TypeScript) and the security rules tests
+firestore.rules, storage.rules   Security rules, tested in functions/test/rules/
 ```
 
 This is a [pub workspace](https://dart.dev/tools/pub/workspaces): one root `pubspec.yaml`, one `pubspec.lock`, one `flutter pub get`.
@@ -38,6 +40,16 @@ flutter analyze lib test                         # in a package
 very_good test --coverage --min-coverage 90 \
   --exclude-coverage "**/*.g.dart **/*.freezed.dart lib/src/tables/** lib/l10n/gen/**"
                                                  # in a package; 70 for apps/sousvite
+```
+
+Cloud Functions and security rules are a Node project in `functions/` (Node version in its `package.json`; the emulators need Java 21). In `functions/`:
+
+```sh
+npm ci                     # install
+npm run lint               # ESLint, zero issues
+npm run format             # Prettier (CI runs format:check)
+npm run typecheck
+npm test                   # builds, starts the emulators (demo-sousvite), runs Vitest with a 90% coverage gate
 ```
 
 **Before you push**, in every package you touched: format, analyze with zero issues (infos count), tests pass, coverage meets the gate. At the root: `build_runner` leaves no diff, and `flutter pub get --enforce-lockfile` passes. CI checks all of this. The only required check is **CI passed**, and PRs merge automatically once it's green.

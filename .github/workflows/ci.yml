@@ -109,12 +109,17 @@ jobs:
         working-directory: apps/sousvite
         run: flutter build web --release
 
+  # Cloud Functions and security rules, tested against the Firebase emulators.
+  functions:
+    name: Functions
+    uses: ./.github/workflows/functions.yaml
+
   # The single required status check for branch protection. It passes only
   # when every job above passed, so new jobs never need new protection rules.
   ci-passed:
     name: CI passed
     if: ${{ always() }}
-    needs: [workspace, package, web]
+    needs: [workspace, package, web, functions]
     runs-on: ubuntu-latest
     steps:
       - name: Check that every job passed
