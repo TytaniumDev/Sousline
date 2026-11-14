@@ -13,6 +13,9 @@ import 'package:sousvite/app/services/error_reporter.dart';
 Future<void> bootstrap(Widget Function() builder) async {
   WidgetsFlutterBinding.ensureInitialized();
   final container = ProviderContainer();
+  await initErrorReporting(container.read(sentryDsnProvider));
+  // After Sentry starts, so these handlers replace Sentry's own and every
+  // error takes the one path through ErrorReporter.
   installErrorHandlers(container.read(errorReporterProvider));
   runApp(UncontrolledProviderScope(container: container, child: builder()));
 }
