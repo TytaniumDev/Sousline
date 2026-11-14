@@ -145,6 +145,7 @@ The goal is that a change to one field rebuilds only the widgets that show that 
 - The database is the single source of truth. The UI reads only from it.
 - **Full-text search** (FTS5) indexes recipe titles, ingredient names, and folder names (PRD 7.1).
 - **Amounts** are exact rational numbers (numerator and denominator), not floats, so ⅓ cup × 3 is exactly 1 cup.
+- **Units** (`packages/domain/lib/src/units/`): each unit belongs to a family (US volume, metric volume, US mass, metric mass, count) and counts a whole number of the family's smallest unit, so conversion within a family is exact. US to metric is approximate and always ends in **measurable rounding**: friendly cup fractions (¼, ⅓, ½, ⅔, ¾), tablespoons to ½, teaspoons to ⅛, metric to 0.5, 1, or 5 depending on size, ounces and pounds to ¼, counts to ¼ or ½. A friendly amount may be at most 5% off before rounding falls back to a smaller unit. Rounding applies only to scaled or converted amounts; unscaled amounts show as written.
 - **Ordering** of sections, steps, and ingredients uses fractional index keys, so moving one item changes one row and merges cleanly during sync.
 - **Migrations** are versioned with Drift's schema tooling and tested with generated schema snapshots.
 
