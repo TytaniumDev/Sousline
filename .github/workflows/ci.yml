@@ -76,6 +76,8 @@ jobs:
             min_coverage: 90
           - package: packages/domain
             min_coverage: 90
+          - package: packages/sync
+            min_coverage: 90
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v2
     with:
       working_directory: ${{ matrix.package }}
