@@ -38,17 +38,22 @@ set_secret() {
   say "  set $1"
 }
 
+# Prints the first keytool that actually runs. macOS ships a /usr/bin/keytool
+# stub that fails when no Java is installed, so each candidate is tried.
 find_keytool() {
-  if command -v keytool >/dev/null 2>&1; then
-    command -v keytool
-    return
-  fi
-  local studio="/Applications/Android Studio.app/Contents/jbr/Contents/Home/bin/keytool"
-  if [[ -x "$studio" ]]; then
-    printf '%s\n' "$studio"
-    return
-  fi
-  say "keytool not found. Install Android Studio or a JDK (brew install openjdk)." >&2
+  local candidate
+  for candidate in \
+    "${JAVA_HOME:+$JAVA_HOME/bin/keytool}" \
+    "/Applications/Android Studio.app/Contents/jbr/Contents/Home/bin/keytool" \
+    /opt/homebrew/opt/openjdk*/bin/keytool \
+    /usr/local/opt/openjdk*/bin/keytool \
+    "$(command -v keytool || true)"; do
+    if [[ -n "$candidate" && -x "$candidate" ]] && "$candidate" -help >/dev/null 2>&1; then
+      printf '%s\n' "$candidate"
+      return
+    fi
+  done
+  say "No working keytool found. Install Android Studio or a JDK (brew install openjdk)." >&2
   exit 1
 }
 
@@ -76,7 +81,7 @@ android_upload_key() {
       -keystore "$keystore" -storetype PKCS12 \
       -storepass:env KEYSTORE_PASSWORD \
       -alias "$KEY_ALIAS" -keyalg RSA -keysize 2048 -validity 10000 \
-      -dname "CN=Sousvite" >/dev/null 2>&1
+      -dname "CN=Sousvite" >/dev/null
     chmod 600 "$keystore"
     say "  created $keystore (back it up with its password file)"
   fi
