@@ -109,6 +109,7 @@ functions/                 Firebase Cloud Functions (TypeScript)
 Rules:
 
 - `domain` depends on nothing in the repo. Pure packages (`ingredient_parser`, `recipe_import`, `nutrition`, `measuring`) depend only on `domain`.
+- `sync` depends only on `domain` and never on Drift. `data` depends on `sync` for the change model and clock (its `ChangeRecorder` writes the change log), and implements the local store the sync engine defines, so the engine is tested without a database.
 - Only `apps/sousvite` depends on Flutter, except for `design_system`.
 - Features are folders inside the app, not packages, to avoid glue code between them.
 - Each feature folder mirrors the layers: `presentation/`, `application/`, and feature-specific `data/` when needed.
