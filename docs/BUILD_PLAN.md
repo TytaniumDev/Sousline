@@ -299,7 +299,7 @@ Costs $99 a year. Enrollment can take a day or two, so start early.
 - [x] For Sign in with Apple on Android and web: create a **Services ID**, set its return URL to the Firebase auth handler (`https://<project-id>.firebaseapp.com/__/auth/handler`), and create a **Sign in with Apple key** (`.p8`). Enter the Services ID, Team ID, Key ID, and key in Firebase Auth → Apple provider. Done 2026-11-14: Services ID `com.tytaniumdev.sousvite.signin` with domain `sousvite.firebaseapp.com`; the key is in Tyler's password manager.
 - [x] In **App Store Connect**, create the app record. Created 2026-11-14: name `Sousvite`, SKU `sousvite`, Apple ID `6834863123`, primary language English (U.S.).
 - [ ] Sign the **Paid Apps agreement** and fill in banking and tax details (needed before any subscription works, even in TestFlight sandbox).
-- [ ] Create an **App Store Connect API key** for CI uploads and an **In-App Purchase key** for RevenueCat (§8.7).
+- [x] Create an **App Store Connect API key** for CI uploads and an **In-App Purchase key** for RevenueCat (§8.7). Done 2026-11-14: `Sousvite CI` (App Manager, key id `VM85JUH69D`) and `Sousvite RevenueCat` (key id `3VTH9P42WT`), both kept in `~/Sousvite-secrets/` on Tyler's Mac.
 - [ ] Add your beta friends as TestFlight testers once `REL-1` lands.
 
 ### 8.3 Google sign-in and Drive (needed by `APP-ACC`, `SYN-4`)
@@ -310,7 +310,7 @@ These live in the Google Cloud project that Firebase created.
 - [x] Google Cloud console → **OAuth consent screen**: app name, support email, privacy policy URL, and the scopes `openid`, `email`, `profile`, and `drive.appdata`. Done 2026-11-14 in Testing mode with Tyler as a test user. The console classifies `drive.appdata` as **non-sensitive**, so no sensitive-scope review is needed. **Branding** (home page and privacy policy links) waits for the real website. Google lists `drive.appdata` among its recommended Drive scopes, so it should only need basic verification, but check how the console classifies it when you add it.
 - [ ] Move the consent screen from **Testing** to **In production** before the beta. In Testing mode Google expires sign-ins after 7 days, which would break Drive sync for testers every week.
 - [x] Turn on the **Google Drive API** for the project.
-- [ ] Add your Android **SHA-1 and SHA-256 fingerprints** to the Firebase Android app: the debug key, your upload key (§8.5), and the Play app signing key (shown in Play Console after the first upload). Google sign-in fails on Android without them.
+- [ ] Add your Android **SHA-1 and SHA-256 fingerprints** to the Firebase Android app: the debug key, your upload key (§8.5), and the Play app signing key (shown in Play Console after the first upload). Google sign-in fails on Android without them. The upload key's fingerprints were added 2026-11-14; the debug key and Play app signing key are still to add.
 
 ### 8.4 Google Play Console (needed by Android builds, Play testing, Android purchases)
 
@@ -325,7 +325,7 @@ Costs $25 once.
 
 ### 8.5 Signing keys (needed by `REL-1`)
 
-- [ ] **Android upload key:** run `tools/secrets/set_github_secrets.sh` on your computer. It creates the keystore in `~/Sousvite-secrets/`, sets it as GitHub Actions secrets, and prints the SHA fingerprints for §8.3. Back up the keystore and its password file in your password manager. Use Play App Signing so Google holds the app signing key.
+- [x] **Android upload key:** run `tools/secrets/set_github_secrets.sh` on your computer. It creates the keystore in `~/Sousvite-secrets/`, sets it as GitHub Actions secrets, and prints the SHA fingerprints for §8.3. Back up the keystore and its password file in your password manager. Use Play App Signing so Google holds the app signing key. Created 2026-11-14 (alias `upload`).
 - [ ] **iOS:** let the release pipeline manage certificates and profiles through the App Store Connect API key from §8.2 (an agent sets this up in `REL-1`).
 
 ### 8.6 Nutrition data (needed by `BE-2`, `NUT-3`)
@@ -351,7 +351,7 @@ Costs $25 once.
 ### 8.9 GitHub repository settings
 
 - [ ] Branch protection on `main` with the CI checks required (set up by the scaffold thread; confirm it is on).
-- [ ] Add the secrets from §8.1, §8.4, §8.5, and §8.8 under Settings → Secrets and variables → Actions. `tools/secrets/set_github_secrets.sh` sets them from files in `~/Sousvite-secrets/` and hidden prompts, so no value is pasted anywhere else. Run it again whenever a new key file arrives. `REL-1` reads these names:
+- [ ] Add the secrets from §8.1, §8.4, §8.5, and §8.8 under Settings → Secrets and variables → Actions. `tools/secrets/set_github_secrets.sh` sets them from files in `~/Sousvite-secrets/` and hidden prompts, so no value is pasted anywhere else. Run it again whenever a new key file arrives. As of 2026-11-14 the Android keystore and App Store Connect secrets are set; `PLAY_SERVICE_ACCOUNT_JSON`, `FIREBASE_SERVICE_ACCOUNT`, and `SENTRY_AUTH_TOKEN` are not. `REL-1` reads these names:
 
   | Secret | From |
   |---|---|
