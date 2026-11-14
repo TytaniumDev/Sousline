@@ -61,6 +61,8 @@ Some files are touched by many tasks. Keep each change to them small, so conflic
 | `packages/design_system/lib/design_system.dart` | Append one `export` line per new widget |
 | `apps/sousvite/lib/app/providers/repositories.dart` | A data task replaces only the body of its own repository's provider |
 | `apps/sousvite/lib/l10n/arb/app_en.arb` | Add keys in your feature's block, prefixed with the feature name (`cooking_nextStep`). Never rename or remove another feature's keys |
+| `functions/src/index.ts` | Add one `export` line per new function, in alphabetical order |
+| `functions/package.json` | Add only the dependencies your task needs. Never hand-merge `functions/package-lock.json`; after a rebase, run `npm install` in `functions/` and commit the result |
 | `packages/domain` entities and interfaces | Additive changes only (new fields with defaults, new methods). Anything else is a separate small PR merged first, see §3.3 |
 
 ### 3.3 Changes to shared foundations

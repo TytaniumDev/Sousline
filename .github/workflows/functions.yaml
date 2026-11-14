@@ -1,0 +1,58 @@
+name: Functions
+
+# Lints, builds, and tests Cloud Functions and security rules against the
+# Firebase emulators, with the demo-sousvite project id, so no real project
+# or credentials are needed. ci.yml calls this workflow, so its result counts
+# toward the single required "CI passed" check.
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  functions:
+    name: Functions and rules
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: functions
+    steps:
+      - name: 📚 Git Checkout
+        uses: actions/checkout@v7
+
+      - name: 🟢 Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: functions/package.json
+          cache: npm
+          cache-dependency-path: functions/package-lock.json
+
+      # The Firestore and Storage emulators run on Java.
+      - name: ☕ Setup Java
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: 💾 Cache emulators
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/firebase/emulators
+          key: firebase-emulators-${{ hashFiles('functions/package-lock.json') }}
+
+      - name: 📦 Install Dependencies
+        run: npm ci
+
+      - name: 🔍 Lint
+        run: npm run lint
+
+      - name: ✨ Check formatting
+        run: npm run format:check
+
+      - name: 🧮 Type check
+        run: npm run typecheck
+
+      - name: 🧪 Build and test against the emulators
+        run: npm test

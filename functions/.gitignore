@@ -1,0 +1,7 @@
+node_modules/
+lib/
+coverage/
+# Emulator logs, written to the folder the emulators start from.
+*.log
+# Local function secrets for the emulator (never committed).
+.secret.local

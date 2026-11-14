@@ -1,0 +1,12 @@
+rules_version = '2';
+
+// Everything is denied until a task adds rules for its own collections:
+// private spaces (SYN-5) and sharing (SHR-1). ENGINEERING.md §9.
+// Rules are tested in functions/test/rules/ against the emulator.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
