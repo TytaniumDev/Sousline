@@ -10,6 +10,7 @@ environment:
 
 dependencies:
   domain: any
+  meta: ^1.17.0
 
 dev_dependencies:
   test: ^1.30.0
