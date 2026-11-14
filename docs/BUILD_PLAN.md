@@ -330,7 +330,7 @@ Costs $25 once.
 
 ### 8.6 Nutrition data (needed by `BE-2`, `NUT-3`)
 
-- [ ] **USDA FoodData Central API key:** sign up at [fdc.nal.usda.gov/api-key-signup](https://fdc.nal.usda.gov/api-key-signup.html) (it is an api.data.gov key, free; the default limit is 1,000 requests an hour, which the proxy's cache keeps us under). Store it as a function secret: `firebase functions:secrets:set USDA_API_KEY`.
+- [x] **USDA FoodData Central API key:** sign up at [fdc.nal.usda.gov/api-key-signup](https://fdc.nal.usda.gov/api-key-signup.html) (it is an api.data.gov key, free; the default limit is 1,000 requests an hour, which the proxy's cache keeps us under). Store it as a function secret: `firebase functions:secrets:set USDA_API_KEY`. Set 2026-11-14 by Tyler as the `USDA_API_KEY` function secret in project `sousvite`.
 - [ ] **Open Food Facts:** no account or key. Their API asks apps to send a `User-Agent` such as `Sousvite/1.0 (<contact email>)`, using the contact email from §8.0.
 
 ### 8.7 RevenueCat and Stripe (needed by `PRO-1`)
