@@ -291,6 +291,7 @@ Because both carry the same change log, **switching transports** means replaying
 
 - **URL import** runs on the device in `packages/recipe_import`. It reads schema.org `Recipe` JSON-LD first, microdata second, and falls back to simple heuristics, then runs each ingredient line through the parser.
 - On **web**, browsers block cross-site requests, so the page is fetched through a Cloud Function proxy that returns the HTML. Parsing still happens on the client.
+- The proxy is the `fetchProxy` callable function (`functions/src/fetch_proxy/`). App Check is enforced. It fetches only public addresses (every redirect hop and every DNS answer is checked, so it can't reach private or metadata addresses), follows at most 5 redirects, allows 10 seconds, and returns only HTML up to 5 MB as `{url, contentType, body}`, where `url` is the final URL after redirects. A failure is an `HttpsError` whose `details.reason` says why (`invalidUrl`, `blockedAddress`, `tooManyRedirects`, `upstreamStatus` with `details.status`, `unsupportedContentType`, `tooLarge`, `timeout`, `network`), so import can report failures by site. It identifies itself with a `Sousvite/1.0` User-Agent that links to the repo.
 - Results always open in a review screen before saving, and failures are reported by site so we can see which sites need work (PRD 10).
 - **Umami import and export** live in the same package. The format is to be validated against real Umami exports early (PRD risk table).
 
