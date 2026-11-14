@@ -1,7 +1,6 @@
-/// Measuring-tool decomposition, amount formatting, and smart step text. See
-/// ENGINEERING.md §13.
-///
-/// Empty shell from the scaffold. docs/BUILD_PLAN.md lists the tasks that fill
-/// it in. When you add the first code and tests, add this package to the matrix
-/// in .github/workflows/ci.yml.
+/// Measuring-tool decomposition, amount formatting, smart step text, and
+/// step timers. See ENGINEERING.md §13.
 library;
+
+export 'src/timers/find_timers.dart';
+export 'src/timers/step_timer.dart';

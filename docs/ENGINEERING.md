@@ -283,6 +283,7 @@ Because both carry the same change log, **switching transports** means replaying
 
 - **Smart step text:** finds mentions of each ingredient in step text (name plus synonyms and head noun, longest match first) and inserts the scaled amount. Replacements are visible and editable (PRD risk table).
 - **Measuring decomposition:** turns an amount into the fewest tools the user owns, as a small search over their cups and spoons with a rounding tolerance. For example, ¾ cup → ½ cup + ¼ cup, and 5 tsp → 1 Tbsp + 2 tsp.
+- **Step timers:** finds the times in a step ("bake 20 to 25 minutes", "1 hour 15 minutes", "half an hour") and returns each one's text, position, and shortest and longest duration, so cooking mode can offer a `TimerChip` and choose which end of a range to count down from. "Overnight" counts as 8 to 12 hours. Intervals ("every 5 minutes"), limits on their own ("up to 3 hours"), days (storage, not cooking), and vague times ("a few minutes") are left out.
 
 ## 14. Recipe import *(Decided)*
 
