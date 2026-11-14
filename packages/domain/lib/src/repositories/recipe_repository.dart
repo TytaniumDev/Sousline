@@ -5,6 +5,7 @@
 import 'package:domain/src/entities/ingredient_line.dart';
 import 'package:domain/src/entities/ingredient_section.dart';
 import 'package:domain/src/entities/recipe.dart';
+import 'package:domain/src/entities/recipe_snapshot.dart';
 import 'package:domain/src/entities/recipe_step.dart';
 import 'package:domain/src/entities/step_section.dart';
 import 'package:domain/src/value_objects/ids.dart';
@@ -41,6 +42,10 @@ abstract interface class RecipeRepository() {
   Future<void> saveStepSection(StepSection section);
 
   Future<void> saveStep(RecipeStep step);
+
+  /// Saves a recipe with all of its parts in one transaction, such as a
+  /// recipe that was just imported (PRD 7.2).
+  Future<void> saveSnapshot(RecipeSnapshot snapshot);
 
   /// Deletes the recipe with its lines, sections, and steps.
   Future<void> deleteRecipe(RecipeId id);

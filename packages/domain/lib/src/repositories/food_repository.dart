@@ -17,6 +17,11 @@ abstract interface class FoodRepository() {
 
   Future<List<FoodPortion>> getPortions(FoodId foodId);
 
+  /// Bundled and cached foods whose names match [query], best first, for
+  /// changing a match by hand (PRD 7.4). Branded products found online
+  /// come from the app's `NutritionApi` instead.
+  Future<List<Food>> searchFoods(String query, {int limit = 20});
+
   /// Caches a food fetched online, so recipes using it work offline.
   Future<void> saveFood(
     Food food, {

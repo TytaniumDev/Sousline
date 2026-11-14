@@ -15,6 +15,7 @@ export 'src/entities/ingredient_section.dart';
 export 'src/entities/measuring_tool.dart';
 export 'src/entities/nutrition_match.dart';
 export 'src/entities/recipe.dart';
+export 'src/entities/recipe_snapshot.dart';
 export 'src/entities/recipe_step.dart';
 export 'src/entities/recipe_version.dart';
 export 'src/entities/step_section.dart';
