@@ -385,6 +385,6 @@ Costs $25 once.
 
 Decided by Tyler on 2026-11-13.
 
-1. **Bundled USDA file:** the generated SQLite file is committed to the repo as a normal file, without Git LFS. It is a few MB and USDA updates it about twice a year, so the history grows slowly. Git LFS has a small free quota that every CI checkout uses, and building the file in CI would download hundreds of MB of CSVs on every build.
+1. **Bundled USDA file:** the generated SQLite file is committed to the repo as a normal file, without Git LFS. It is about 9 MB (under 2 MB compressed, which is what Git stores) and USDA updates it about twice a year, so the history grows slowly. Git LFS has a small free quota that every CI checkout uses, and building the file in CI would download hundreds of MB of CSVs on every build.
 2. **Release builds:** fastlane, run on GitHub Actions. The repo is public, so Actions minutes (including macOS) are free, and releases run alongside CI. iOS signing uses the App Store Connect API key from §8.2.
 3. **Firebase:** one project, with no dev and prod split (§8.1).
